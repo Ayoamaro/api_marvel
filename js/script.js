@@ -59,8 +59,20 @@ $('#onComics').click(function() {
 				var comicNuevo = $('<div class="divComics">')
 				contenedorResultados.append(comicNuevo)
 				comicNuevo.append(`<p>${comics[key].title}</p>`)
+				if (comics[key].description === null){
+					comicNuevo.append(`<p>--------------</p>`)
+					comicNuevo.append(`<p>Sin descripción</p>`)
+				}
+				else {
+					comicNuevo.append(`<p>--------------</p>`)
+					mostrarMas()
+					var descripcion = comics[key].description
+      				var textoResumido = descripcion.substring(0, 50)
+     				var textoCompleto = `<a class='leerMas' href='#'>Leer más</a><span id="leerMenos">${descripcion} <a class='leerMenos' href=""> Leer menos</a></span> `
+					comicNuevo.append(`${textoResumido}${textoCompleto}`)
+					
+				}
 				comicNuevo.append(`<img src="${comics[key].thumbnail.path}.${comics[key].thumbnail.extension}" style="width: 150px; height: 150px;"></img>`)
-				comicNuevo.append(`<p>${comics[key].description}</p>`)
 			});
 		},
 		complete: function() {
@@ -97,23 +109,16 @@ $("#busqueda").keyup(function() {
 				if (buscarComic === true) {
 					elementosNuevos.append(`<p>${busqueda[key].title}</p>`)
 					if (busqueda[key].description === null){
-						elementosNuevos.append(`<article><p>--------------</p></article>`);
-						elementosNuevos.append(`<article><p>Sin descripción</p></article>`);
+						elementosNuevos.append(`<p>--------------</p>`)
+						elementosNuevos.append(`<p>Sin descripción</p>`)
 					}
 					else {
-						elementosNuevos.append(`<article><p>--------------</p></article>`);
-						var descripcion = busqueda[key].description;
-						var caracteresMax = 50;
-						if (descripcion.length > caracteresMax) {
-							var resumen = descripcion.substr(0, caracteresMax);
-							var todo = descripcion.substr(caracteresMax, descripcion.length - caracteresMax);	
-							
-							elementosNuevos.append(`<article><p>${resumen}</p><a href="#" class="elemento">Leer más...</a></article>`);
-							$('.elemento').click(function(e) {
-								e.preventDefault();
-								$(this).text(`<article><p>${todo}</p><a href="#" class="elemento">Leer menos...</a></article>`).show();
-							});
-						}
+						elementosNuevos.append(`<p>--------------</p>`)
+						mostrarMas()
+						var descripcion = busqueda[key].description
+      					var textoResumido = descripcion.substring(0, 50)
+     					var textoCompleto = `<a class='leerMas' href='#'>Leer más</a><span id="leerMenos">${descripcion} <a class='leerMenos' href=""> Leer menos</a></span> `
+						elementosNuevos.append(`${textoResumido}${textoCompleto}`)
 					}
 				} else {
 					elementosNuevos.append(`<p>${busqueda[key].name}</p>`)
@@ -128,4 +133,18 @@ $("#busqueda").keyup(function() {
 	});
   });
 
-
+function mostrarMas() {
+	$(".leerMas").click(function(e) {
+		e.preventDefault()
+		$(e.target).hide()
+		$(e.target).prev().hide()
+		$(e.target).nextAll().show()
+		$(e.target).nextAll().children().show()
+	});
+	$(".leerMenos").click(function(e) {
+		e.preventDefault()
+		$(e.target).hide()
+		$(e.target).parent().hide()
+		$(e.target).parent().prevAll().show()
+	});
+}
