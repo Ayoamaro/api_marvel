@@ -5,12 +5,16 @@ var ts = new Date().getTime();
 var hash = CryptoJS.MD5(ts + privateKey + publicKey).toString();
 var buscarPersonaje;
 var buscarComic;
-$('#spinnerUI').hide()
-$('#busqueda').hide()
-$('#volver').hide()
-$('<div id="resultados"></div>').insertAfter('.cuerpo')
 
+/* Ejecutamos la serie de comandos al iniciar la página web */
+$(document).ready(function() {
+	$('#spinnerUI').hide()
+	$('#busqueda').hide()
+	$('#volver').hide()
+	$('<div id="resultados"></div>').insertAfter('.cuerpo')
+});
 
+/* Función a ejecutar al pulsar el botón (onPersonajes) */
 $('#onPersonajes').click(function() {
 	$("#spinnerUI").show();
 	$('#busqueda').show()
@@ -39,7 +43,7 @@ $('#onPersonajes').click(function() {
 	});
 });
 
-
+/* Función a ejecutar al pulsar el botón (onComics) */
 $('#onComics').click(function() {
 	$("#spinnerUI").show()
 	$('#busqueda').show()
@@ -65,6 +69,7 @@ $('#onComics').click(function() {
 				}
 				else {
 					comicNuevo.append(`<p>--------------</p>`)
+					/* Función con efecto leer más texto de las descripciones */
 					mostrarMas()
 					var descripcion = comics[key].description
       				var textoResumido = descripcion.substring(0, 50)
@@ -81,7 +86,7 @@ $('#onComics').click(function() {
 	});
 });
 
-
+/* Filtro de búsqueda que se ejecutará a la vez que el usuario teclea un nombre de comic/personaje */
 $("#busqueda").keyup(function() {
 	$("#spinnerUI").show();
 	$('#resultados').empty();
@@ -114,6 +119,7 @@ $("#busqueda").keyup(function() {
 					}
 					else {
 						elementosNuevos.append(`<p>--------------</p>`)
+						/* Función con efecto leer más texto de las descripciones */
 						mostrarMas()
 						var descripcion = busqueda[key].description
       					var textoResumido = descripcion.substring(0, 50)
@@ -133,6 +139,9 @@ $("#busqueda").keyup(function() {
 	});
   });
 
+
+/* La funcionalidad no está del todo correcta, ya que al clickear "Leer más" no se oculta
+el texto anterior que se muestra en un comienzo para el usuario */
 function mostrarMas() {
 	$(".leerMas").click(function(e) {
 		e.preventDefault()
