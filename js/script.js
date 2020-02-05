@@ -122,8 +122,8 @@ $("#busqueda").keyup(function() {
 						/* Función con efecto leer más texto de las descripciones */
 						mostrarMas()
 						var descripcion = busqueda[key].description
-      					var textoResumido = descripcion.substring(0, 50)
-     					var textoCompleto = `<a class='leerMas' href='#'>Leer más</a><span id="leerMenos" style="display: none;">${descripcion} <a class='leerMenos' href=""> Leer menos</a></span> `
+      						var textoResumido = descripcion.substring(0, 50)
+     						var textoCompleto = `<a class='leerMas' href='#'>Leer más</a><span id="leerMenos" style="display: none;">${descripcion} <a class='leerMenos' href=""> Leer menos</a></span> `
 						elementosNuevos.append(`${textoResumido}${textoCompleto}`)
 					}
 				} else {
