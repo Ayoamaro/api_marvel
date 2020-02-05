@@ -9,6 +9,10 @@
     text-align: center;
 }
 
+#leerMenos {
+    display: none;
+}
+
 button {
     font-family: "Lucida Sans Unicode"; 
     font-size: 20px; 
